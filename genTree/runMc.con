@@ -1,0 +1,7 @@
+Universe       = vanilla
+Notification   = never
++Job_Type      = "cas"
+GetEnv         = true
+Initialdir     = /star/u/geurts/projects/cc2ee/genTree/
+
+
