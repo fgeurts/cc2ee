@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<job  minFilesPerProcess="150" maxFilesPerProcess="400" fileListSyntax="paths" simulateSubmission="false">
+
+	<command>
+		starver SL21a
+		./analysis $FILELIST $JOBID.root
+	</command>
+
+	<stdout URL="file:&logpath;/log/$JOBID.out" />
+	<stderr URL="file:&logpath;/err/$JOBID.err" />
+	
+	<input URL="filelist:/star/u/geurts/projects/cc2ee/ana.bes1/inputfiles/bes1_27.list" />
+	<output fromScratch="*.root" toURL="file:&outpath;/" />
+
+	<SandBox>
+		<Package>
+		<File>file:analysis*</File>
+		<File>file:./inputfiles</File>
+		</Package> 
+	</SandBox>
+
+	<Generator>
+		<Location>/star/data01/pwg/geurts/cc2ee/BES1_27GeV/out4cchist/report/</Location>
+		<ScriptLocation>/star/data01/pwg/geurts/cc2ee/BES1_27GeV/out4cchist/csh/</ScriptLocation>
+		<ListLocation>/star/data01/pwg/geurts/cc2ee/BES1_27GeV/out4cchist/list/</ListLocation>
+	</Generator>
+</job>
