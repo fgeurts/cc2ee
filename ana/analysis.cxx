@@ -15,18 +15,18 @@
 #include "meTree.h"
 //#include "StRefMultCorr.h"
 //#include "Histograms.h"
-//#include <stdio.h> 
+//#include <stdio.h>
 
-#ifndef __CINT__  
+#ifndef __CINT__
 #include "TROOT.h"
-#include "TFile.h" 
+#include "TFile.h"
 #include "TChain.h"
 #include "TMath.h"
-#include "TH1.h" 
-#include "TH2.h"   
+#include "TH1.h"
+#include "TH2.h"
 #include "TH2D.h"
-#include "TH3.h" 
-#include "TF1.h" 
+#include "TH3.h"
+#include "TF1.h"
 #include "TStyle.h"
 #include "TCanvas.h"
 #include "TProfile.h"
@@ -42,7 +42,7 @@
 using std::cout;
 using std::endl;
 using std::setw;
-#endif 
+#endif
 
 
 //fg Mass,pT bin ranges copied from RiceU-HeavyIons/eeAuAu27/charming.cpp
@@ -70,7 +70,7 @@ int main(int argc, char** argv){
     }
 
     TFile *fout = new TFile(outFile,"recreate");
-    Int_t NPX = 10000;	
+    Int_t NPX = 10000;
     TF1* fDCB = new TF1("fDCB",DoubleCrystalBall,-1.,1.,7);
 
     int ENERGY = 27; //  27, 39, 62
@@ -107,18 +107,18 @@ int main(int argc, char** argv){
     TH2D *hpTInvMassRmAllAccccbar  = new TH2D("hpTInvMassRmAllAccccbar"  , "RmAll ccbar acc"         , 1800 , 0. , 3.6 , 200 , 0. , 5.);
     TH2D *hpTInvMassRmAllccbar     = new TH2D("hpTInvMassRmAllccbar"     , "RmAll ccbar "            , 1800 , 0. , 3.6 , 200 , 0. , 5.);
  //fg - Define LE-based histograms
-    TH2D *h0pTInvMassAccccbarLE      = new TH2D("h0pTInvMassAccccbarLE"      , "No smearing ccbar acc"   , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *h0pTInvMassccbarLE         = new TH2D("h0pTInvMassccbarLE"         , "No smearing ccbar "      , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassAccccbarLE       = new TH2D("hpTInvMassAccccbarLE"       , "Smearing ccbar acc"      , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassccbarLE          = new TH2D("hpTInvMassccbarLE"          , "Smearing ccbar "         , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmDPhiAccccbarLE = new TH2D("hpTInvMassRmDPhiAccccbarLE" , "RmDPhi ccbar acc"        , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmDPhiccbarLE    = new TH2D("hpTInvMassRmDPhiccbarLE"    , "RmDPhi ccbar "           , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmPhiAccccbarLE  = new TH2D("hpTInvMassRmPhiAccccbarLE"  , "RmPhi ccbar acc"         , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmPhiccbarLE     = new TH2D("hpTInvMassRmPhiccbarLE"     , "RmPhi ccbar "            , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmEtaAccccbarLE  = new TH2D("hpTInvMassRmEtaAccccbarLE"  , "RmEta and Phi ccbar acc" , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmEtaccbarLE     = new TH2D("hpTInvMassRmEtaccbarLE"     , "RmEta and Phi ccbar "    , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmAllAccccbarLE  = new TH2D("hpTInvMassRmAllAccccbarLE"  , "RmAll ccbar acc"         , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmAllccbarLE     = new TH2D("hpTInvMassRmAllccbarLE"     , "RmAll ccbar "            , 1800 , 0. , 3.6 , 200 , 0. , 5.);
+    TH2D *h0pTInvMassAccccbarLE      = new TH2D("h0pTInvMassAccccbarLE"      , "No smearing ccbar acc"   , MassBins, LowEdges, HpTBins, HlowEdgespT);
+    TH2D *h0pTInvMassccbarLE         = new TH2D("h0pTInvMassccbarLE"         , "No smearing ccbar "      , MassBins, LowEdges, HpTBins, HlowEdgespT);
+    TH2D *hpTInvMassAccccbarLE       = new TH2D("hpTInvMassAccccbarLE"       , "Smearing ccbar acc"      , MassBins, LowEdges, HpTBins, HlowEdgespT);
+    TH2D *hpTInvMassccbarLE          = new TH2D("hpTInvMassccbarLE"          , "Smearing ccbar "         , MassBins, LowEdges, HpTBins, HlowEdgespT);
+    TH2D *hpTInvMassRmDPhiAccccbarLE = new TH2D("hpTInvMassRmDPhiAccccbarLE" , "RmDPhi ccbar acc"        , MassBins, LowEdges, HpTBins, HlowEdgespT);
+    TH2D *hpTInvMassRmDPhiccbarLE    = new TH2D("hpTInvMassRmDPhiccbarLE"    , "RmDPhi ccbar "           , MassBins, LowEdges, HpTBins, HlowEdgespT);
+    TH2D *hpTInvMassRmPhiAccccbarLE  = new TH2D("hpTInvMassRmPhiAccccbarLE"  , "RmPhi ccbar acc"         , MassBins, LowEdges, HpTBins, HlowEdgespT);
+    TH2D *hpTInvMassRmPhiccbarLE     = new TH2D("hpTInvMassRmPhiccbarLE"     , "RmPhi ccbar "            , MassBins, LowEdges, HpTBins, HlowEdgespT);
+    TH2D *hpTInvMassRmEtaAccccbarLE  = new TH2D("hpTInvMassRmEtaAccccbarLE"  , "RmEta and Phi ccbar acc" , MassBins, LowEdges, HpTBins, HlowEdgespT);
+    TH2D *hpTInvMassRmEtaccbarLE     = new TH2D("hpTInvMassRmEtaccbarLE"     , "RmEta and Phi ccbar "    , MassBins, LowEdges, HpTBins, HlowEdgespT);
+    TH2D *hpTInvMassRmAllAccccbarLE  = new TH2D("hpTInvMassRmAllAccccbarLE"  , "RmAll ccbar acc"         , MassBins, LowEdges, HpTBins, HlowEdgespT);
+    TH2D *hpTInvMassRmAllccbarLE     = new TH2D("hpTInvMassRmAllccbarLE"     , "RmAll ccbar "            , MassBins, LowEdges, HpTBins, HlowEdgespT);
  //-fg
     TH1D *hPosPt  = new TH1D("hPosPt", "hPosPt",500,0,5);
     TH1D *hPosEta = new TH1D("hPosEta","hPosEta",400,-4,4);
@@ -164,7 +164,7 @@ int main(int argc, char** argv){
 
     //---------------------------------------------------------
     // loop events
-    //---------------------------------------------------------	
+    //---------------------------------------------------------
     int n = chain->GetEntries();
     cout<<n<<" events"<<endl;
 
@@ -172,7 +172,7 @@ int main(int argc, char** argv){
     rnu->SetSeed(12345);
 
     cout<<"### get pt eta phi distribution"<<endl;
-    for(int i=0;i<n;i++){ 
+    for(int i=0;i<n;i++){
       if(i%100000==0) cout<<i<<" events"<<endl;
       chain->GetEntry(i);
       Int_t nePos = tree->nePos;
@@ -194,13 +194,13 @@ int main(int argc, char** argv){
 	hNegPt->Fill(eNegPt);
 	hNegEta->Fill(eNegEta);
 	hNegPhi->Fill(eNegPhi);
-      } 
+      }
     }
     cout<<"### get pt eta phi distribution--- done!!!"<<endl;
 
 
     cout<<"### begin to get pairs"<<endl;
-    for(int i=0;i<n;i++){ 
+    for(int i=0;i<n;i++){
 	if(i%100000==0) cout<<i<<" events"<<endl;
 	chain->GetEntry(i);
 
@@ -213,14 +213,14 @@ int main(int argc, char** argv){
 	  Float_t ePosPhi = tree->ePosPhi[ii];
 	  Float_t ePosEta = tree->ePosEta[ii];
 	  Int_t   ePosParentGID = tree->ePosParentGID[ii];
-	  double BRPos = GetBR(ePosParentGID);  
+	  double BRPos = GetBR(ePosParentGID);
 
 	  for (Int_t jj=0; jj<neNeg; jj++){
 	    Float_t eNegPt = tree->eNegPt[jj];
 	    Float_t eNegPhi = tree->eNegPhi[jj];
 	    Float_t eNegEta = tree->eNegEta[jj];
 	    Int_t   eNegParentGID = tree->eNegParentGID[jj];
-	    double BRNeg = GetBR(eNegParentGID);  
+	    double BRNeg = GetBR(eNegParentGID);
 
 	    TLorentzVector d01;
 	    d01.SetPtEtaPhiM(ePosPt,ePosEta,ePosPhi,M_el);
@@ -228,7 +228,7 @@ int main(int argc, char** argv){
 	    d02.SetPtEtaPhiM(eNegPt,eNegEta,eNegPhi,M_el);
 	    TLorentzVector pair0;
 	    pair0 = d01+d02;
-	    bool acc0 = fabs(pair0.Rapidity())<1 
+	    bool acc0 = fabs(pair0.Rapidity())<1
 	                 && d01.Pt()>0.2 && fabs(d01.Eta()<1)
 	                 && d02.Pt()>0.2 && fabs(d02.Eta()<1);
 
@@ -260,7 +260,7 @@ int main(int argc, char** argv){
 	    pair = d1+d2;
 	    bool acc;
 
-	    acc = fabs(pair.Rapidity())<1 
+	    acc = fabs(pair.Rapidity())<1
 	          && d1.Pt()>0.2 && fabs(d1.Eta())<1
 	          && d2.Pt()>0.2 && fabs(d2.Eta())<1;
 
@@ -279,7 +279,7 @@ int main(int argc, char** argv){
 	    d2.SetPtEtaPhiM(newpt2,neweta2,newphi2,M_el);
 	    pair = d1+d2;
 
-	    acc = fabs(pair.Rapidity())<1 
+	    acc = fabs(pair.Rapidity())<1
 	          && d1.Pt()>0.2 && fabs(d1.Eta())<1
 	          && d2.Pt()>0.2 && fabs(d2.Eta())<1;
  	    hpTInvMassRmDPhiccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
@@ -290,13 +290,13 @@ int main(int argc, char** argv){
 	    }
 
 	    // Random Phi
-	    newphi1 = hPosPhi->GetRandom();  
+	    newphi1 = hPosPhi->GetRandom();
 	    newphi2 = hNegPhi->GetRandom();
 	    d1.SetPtEtaPhiM(newpt1,neweta1,newphi1,M_el);
 	    d2.SetPtEtaPhiM(newpt2,neweta2,newphi2,M_el);
 	    pair = d1+d2;
 
-	    acc = fabs(pair.Rapidity())<1 
+	    acc = fabs(pair.Rapidity())<1
 	          && d1.Pt()>0.2 && fabs(d1.Eta())<1
 	          && d2.Pt()>0.2 && fabs(d2.Eta())<1;
 	    hpTInvMassRmPhiccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
@@ -307,13 +307,13 @@ int main(int argc, char** argv){
 	    }
 
 	    // Random Eta and Phi
-	    newphi1 = hPosEta->GetRandom();  
+	    newphi1 = hPosEta->GetRandom();
 	    newphi2 = hNegEta->GetRandom();
 	    d1.SetPtEtaPhiM(newpt1,neweta1,newphi1,M_el);
 	    d2.SetPtEtaPhiM(newpt2,neweta2,newphi2,M_el);
 	    pair = d1+d2;
 
-	    acc = fabs(pair.Rapidity())<1 
+	    acc = fabs(pair.Rapidity())<1
 	          && d1.Pt()>0.2 && fabs(d1.Eta())<1
 	          && d2.Pt()>0.2 && fabs(d2.Eta())<1;
 	    hpTInvMassRmEtaccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
@@ -330,7 +330,7 @@ int main(int argc, char** argv){
 	    d2.SetPtEtaPhiM(newpt2,neweta2,newphi2,M_el);
 	    pair = d1+d2;
 
-	    acc = fabs(pair.Rapidity())<1 
+	    acc = fabs(pair.Rapidity())<1
                   && d1.Pt()>0.2 && fabs(d1.Eta())<1
 	          && d2.Pt()>0.2 && fabs(d2.Eta())<1;
  	    hpTInvMassRmAllccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
@@ -357,7 +357,7 @@ Double_t GetBR(Int_t id){
 }
 Double_t pTSmear(double *x, double *p){
     Double_t pT = x[0];
-    Double_t a = p[0]; 
+    Double_t a = p[0];
     Double_t b = p[1];
 
     return TMath::Sqrt(a*a*pT*pT+b*b);
