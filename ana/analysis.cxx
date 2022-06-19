@@ -45,6 +45,14 @@ using std::setw;
 #endif 
 
 
+//fg Mass,pT bin ranges copied from RiceU-HeavyIons/eeAuAu27/charming.cpp
+const Int_t MassBins = 47;
+const Double_t LowEdges[48]={0, 0.004, 0.008, 0.012, 0.016, 0.02, 0.024, 0.028, 0.032, 0.036, 0.04, 0.044, 0.048, 0.052, 0.056, 0.06, 0.064, 0.068, 0.072, 0.076, 0.08, 0.084, 0.088, 0.092, 0.096, 0.1, 0.25, 0.4, 0.5164, 0.6332, 0.75, 0.7716, 0.7832, 0.8072, 0.9958, 1.0108, 1.0258, 1.0408, 1.2008, 1.5508, 3.011, 3.081, 3.097, 3.113, 3.129, 3.145, 3.225, 3.305};
+const Int_t HpTBins = 12;
+const Double_t HlowEdgespT[13]={0.0,0.2,0.4,0.6,0.8,1.0,1.4,1.8,2.2,2.6,3.0,3.5,4.0};
+//-fg
+
+
 double PI;
 Double_t GetBR(Int_t id);
 Double_t pTSmear(double *x, double *p);
@@ -98,14 +106,27 @@ int main(int argc, char** argv){
     TH2D *hpTInvMassRmEtaccbar     = new TH2D("hpTInvMassRmEtaccbar"     , "RmEta and Phi ccbar "    , 1800 , 0. , 3.6 , 200 , 0. , 5.);
     TH2D *hpTInvMassRmAllAccccbar  = new TH2D("hpTInvMassRmAllAccccbar"  , "RmAll ccbar acc"         , 1800 , 0. , 3.6 , 200 , 0. , 5.);
     TH2D *hpTInvMassRmAllccbar     = new TH2D("hpTInvMassRmAllccbar"     , "RmAll ccbar "            , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-
+ //fg - Define LE-based histograms
+    TH2D *h0pTInvMassAccccbarLE      = new TH2D("h0pTInvMassAccccbarLE"      , "No smearing ccbar acc"   , 1800 , 0. , 3.6 , 200 , 0. , 5.);
+    TH2D *h0pTInvMassccbarLE         = new TH2D("h0pTInvMassccbarLE"         , "No smearing ccbar "      , 1800 , 0. , 3.6 , 200 , 0. , 5.);
+    TH2D *hpTInvMassAccccbarLE       = new TH2D("hpTInvMassAccccbarLE"       , "Smearing ccbar acc"      , 1800 , 0. , 3.6 , 200 , 0. , 5.);
+    TH2D *hpTInvMassccbarLE          = new TH2D("hpTInvMassccbarLE"          , "Smearing ccbar "         , 1800 , 0. , 3.6 , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmDPhiAccccbarLE = new TH2D("hpTInvMassRmDPhiAccccbarLE" , "RmDPhi ccbar acc"        , 1800 , 0. , 3.6 , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmDPhiccbarLE    = new TH2D("hpTInvMassRmDPhiccbarLE"    , "RmDPhi ccbar "           , 1800 , 0. , 3.6 , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmPhiAccccbarLE  = new TH2D("hpTInvMassRmPhiAccccbarLE"  , "RmPhi ccbar acc"         , 1800 , 0. , 3.6 , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmPhiccbarLE     = new TH2D("hpTInvMassRmPhiccbarLE"     , "RmPhi ccbar "            , 1800 , 0. , 3.6 , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmEtaAccccbarLE  = new TH2D("hpTInvMassRmEtaAccccbarLE"  , "RmEta and Phi ccbar acc" , 1800 , 0. , 3.6 , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmEtaccbarLE     = new TH2D("hpTInvMassRmEtaccbarLE"     , "RmEta and Phi ccbar "    , 1800 , 0. , 3.6 , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmAllAccccbarLE  = new TH2D("hpTInvMassRmAllAccccbarLE"  , "RmAll ccbar acc"         , 1800 , 0. , 3.6 , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmAllccbarLE     = new TH2D("hpTInvMassRmAllccbarLE"     , "RmAll ccbar "            , 1800 , 0. , 3.6 , 200 , 0. , 5.);
+ //-fg
     TH1D *hPosPt  = new TH1D("hPosPt", "hPosPt",500,0,5);
     TH1D *hPosEta = new TH1D("hPosEta","hPosEta",400,-4,4);
-    TH1D *hPosPhi = new TH1D("hPosPhi","hPosPhi",360,0,2*PI);
+    TH1D *hPosPhi = new TH1D("hPosPhi","hPosPhi",360,-PI,PI);
 
     TH1D *hNegPt  = new TH1D("hNegPt", "hNegPt",500,0,5);
     TH1D *hNegEta = new TH1D("hNegEta","hNegEta",400,-4,4);
-    TH1D *hNegPhi = new TH1D("hNegPhi","hNegPhi",360,0,2*PI);
+    TH1D *hNegPhi = new TH1D("hNegPhi","hNegPhi",360,-PI,PI);
 
     //---------------------------------------------------
     // open files and add to the chain
@@ -212,8 +233,10 @@ int main(int argc, char** argv){
 	                 && d02.Pt()>0.2 && fabs(d02.Eta()<1);
 
 	    h0pTInvMassccbar->Fill(pair0.M(),pair0.Pt(),BRNeg*BRPos);
+	    h0pTInvMassccbarLE->Fill(pair0.M(),pair0.Pt(),BRNeg*BRPos);
 	    if(acc0) {
 	      h0pTInvMassAccccbar->Fill(pair0.M(),pair0.Pt(),BRNeg*BRPos);
+	      h0pTInvMassAccccbarLE->Fill(pair0.M(),pair0.Pt(),BRNeg*BRPos);
 	    }
 
 	    Double_t ptRes1 = fpTSmear->Eval(d01.Pt())*hDoubleCrystalBall->GetRandom()/0.01;
@@ -242,8 +265,10 @@ int main(int argc, char** argv){
 	          && d2.Pt()>0.2 && fabs(d2.Eta())<1;
 
 	    hpTInvMassccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
+	    hpTInvMassccbarLE->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
 	    if(acc) {
 	      hpTInvMassAccccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
+	      hpTInvMassAccccbarLE->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
 	    }
 
 	    // Random deltPhi
@@ -257,9 +282,11 @@ int main(int argc, char** argv){
 	    acc = fabs(pair.Rapidity())<1 
 	          && d1.Pt()>0.2 && fabs(d1.Eta())<1
 	          && d2.Pt()>0.2 && fabs(d2.Eta())<1;
-	    hpTInvMassRmDPhiccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
+ 	    hpTInvMassRmDPhiccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
+ 	    hpTInvMassRmDPhiccbarLE->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
 	    if(acc) {
 	      hpTInvMassRmDPhiAccccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
+	      hpTInvMassRmDPhiAccccbarLE->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
 	    }
 
 	    // Random Phi
@@ -273,8 +300,10 @@ int main(int argc, char** argv){
 	          && d1.Pt()>0.2 && fabs(d1.Eta())<1
 	          && d2.Pt()>0.2 && fabs(d2.Eta())<1;
 	    hpTInvMassRmPhiccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
+	    hpTInvMassRmPhiccbarLE->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
 	    if(acc) {
 	      hpTInvMassRmPhiAccccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
+	      hpTInvMassRmPhiAccccbarLE->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
 	    }
 
 	    // Random Eta and Phi
@@ -288,8 +317,10 @@ int main(int argc, char** argv){
 	          && d1.Pt()>0.2 && fabs(d1.Eta())<1
 	          && d2.Pt()>0.2 && fabs(d2.Eta())<1;
 	    hpTInvMassRmEtaccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
+	    hpTInvMassRmEtaccbarLE->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
 	    if(acc) {
 	      hpTInvMassRmEtaAccccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
+	      hpTInvMassRmEtaAccccbarLE->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
 	    }
 
 	    // Random All
@@ -302,9 +333,11 @@ int main(int argc, char** argv){
 	    acc = fabs(pair.Rapidity())<1 
                   && d1.Pt()>0.2 && fabs(d1.Eta())<1
 	          && d2.Pt()>0.2 && fabs(d2.Eta())<1;
-	    hpTInvMassRmAllccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
+ 	    hpTInvMassRmAllccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
+ 	    hpTInvMassRmAllccbarLE->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
 	    if(acc) {
 	      hpTInvMassRmAllAccccbar->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
+	      hpTInvMassRmAllAccccbarLE->Fill(pair.M(),pair.Pt(),BRNeg*BRPos);
 	    }
 	  } //eNeg loop
 	} // ePos loop
