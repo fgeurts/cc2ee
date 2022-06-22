@@ -74,9 +74,12 @@ int main(int argc, char** argv){
     TF1* fDCB = new TF1("fDCB",DoubleCrystalBall,-1.,1.,7);
 
     int ENERGY = 27; //  27, 39, 62
-    if(ENERGY==39) fDCB->SetParameters(1.746,1.673,1.531,8.267,5.3e-5,0.0092,1);
-    else if(ENERGY==62) fDCB->SetParameters(1.727,1.665,1.571,7.839,-2.5e-5,0.0092,1);
-    else fDCB->SetParameters(1.75,1.84,1.29,2.92,-1.E-3,0.01,1.);
+    if(ENERGY==39)
+      fDCB->SetParameters(1.746,1.673,1.531,8.267,5.3e-5,0.0092,1);  // source:  STAR Analysis Note PSN0656 (fig. 26, page 21)
+    else if(ENERGY==62)
+      fDCB->SetParameters(1.727,1.665,1.571,7.839,-2.5e-5,0.0092,1); // source:  STAR Analysis Note PSN0656 (fig. 27, page 22)
+    else
+      fDCB->SetParameters(1.812, 2.145, 1.224, 4.325, -3.3E-4, 0.0093, 1.); // source: STAR Analysis Note PSN0656 (fig. 40, page 31)
     fDCB->SetNpx(NPX);
     TH1D *hDoubleCrystalBall = (TH1D*) fDCB->GetHistogram();
 
