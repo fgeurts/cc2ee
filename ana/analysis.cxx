@@ -83,9 +83,13 @@ int main(int argc, char** argv){
     fDCB->SetNpx(NPX);
     TH1D *hDoubleCrystalBall = (TH1D*) fDCB->GetHistogram();
 
-    TF1 *fpTSmear = new TF1("fpTSmear",pTSmear,0.,10.,2);//15.,0);
-    if(ENERGY==39) fpTSmear->SetParameters(6.205e-3, 8.5e-3);
-    else if(ENERGY==62) fpTSmear->SetParameters(9.235e-3,8.5e-3);
+    TF1 *fpTSmear = new TF1("fpTSmear",pTSmear,0.,10.,2);//15.,0); 
+    if(ENERGY==39)
+      fpTSmear->SetParameters(0.001973, 0.008535); // source:  STAR Analysis Note PSN0656 (fig. 26, page 21)
+    else if(ENERGY==62)
+      fpTSmear->SetParameters(0.002296, 0.008505); // source:  STAR Analysis Note PSN0656 (fig. 27, page 22)
+    else
+      fpTSmear->SetParameters(0.003011, 0.007934); // source: STAR Analysis Note PSN0656 (fig. 39, page 31)
     fpTSmear->SetNpx(NPX);//Added 1/26/15
 
     // Histograms
