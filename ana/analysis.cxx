@@ -59,26 +59,41 @@ Double_t pTSmear(double *x, double *p);
 Double_t DoubleCrystalBall(double *x, double *p);
 
 int main(int argc, char** argv){
-    if(argc!=1&&argc!=3) return -1;
+    PI = TMath::Pi();
+
+  // process command line arguments
+  if(argc!=1 && argc!=4) {
+    cout << "Usage: " << argv[0] << " <energy (27,39,64)> <input.list> <output.root>" << endl;
+    return -1; 
+  }
+  // defaults
+    int ENERGY = 27; //  27, 39, 62
     char *inFile = (char*)"test.list";
     char outFile[100];
-    PI = TMath::Pi();
-    sprintf(outFile,"test2.root");
-    if(argc==3){
-	inFile = argv[1];
-	sprintf(outFile,"%s",argv[2]);
+    sprintf(outFile,"test.root");
+
+    if(argc==4){
+      ENERGY = atoi(argv[1]);
+	inFile = argv[2];
+	sprintf(outFile,"%s",argv[3]);
     }
+
+    if (ENERGY!=27 && ENERGY!=39 && ENERGY!=62){
+      cout << "Energy " << ENERGY << " is not supported." << endl;
+      return -1;
+    }
+    cout << "Applying run specific parameters for beam energy " << ENERGY << " GeV" << endl;
 
     TFile *fout = new TFile(outFile,"recreate");
     Int_t NPX = 10000;
     TF1* fDCB = new TF1("fDCB",DoubleCrystalBall,-1.,1.,7);
 
-    int ENERGY = 27; //  27, 39, 62
+    // Set run-specific DCB and smearing parameters
     if(ENERGY==39)
       fDCB->SetParameters(1.746,1.673,1.531,8.267,5.3e-5,0.0092,1);  // source:  STAR Analysis Note PSN0656 (fig. 26, page 21)
     else if(ENERGY==62)
       fDCB->SetParameters(1.727,1.665,1.571,7.839,-2.5e-5,0.0092,1); // source:  STAR Analysis Note PSN0656 (fig. 27, page 22)
-    else
+    else // ENERGY==27
       fDCB->SetParameters(1.812, 2.145, 1.224, 4.325, -3.3E-4, 0.0093, 1.); // source: STAR Analysis Note PSN0656 (fig. 40, page 31)
     fDCB->SetNpx(NPX);
     TH1D *hDoubleCrystalBall = (TH1D*) fDCB->GetHistogram();
@@ -88,7 +103,7 @@ int main(int argc, char** argv){
       fpTSmear->SetParameters(0.001973, 0.008535); // source:  STAR Analysis Note PSN0656 (fig. 26, page 21)
     else if(ENERGY==62)
       fpTSmear->SetParameters(0.002296, 0.008505); // source:  STAR Analysis Note PSN0656 (fig. 27, page 22)
-    else
+    else // ENERGY==27
       fpTSmear->SetParameters(0.003011, 0.007934); // source: STAR Analysis Note PSN0656 (fig. 39, page 31)
     fpTSmear->SetNpx(NPX);//Added 1/26/15
 

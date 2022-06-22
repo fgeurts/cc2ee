@@ -1,6 +1,8 @@
 #!/bin/bash
 
-outDir=/star/data01/pwg/geurts/cc2ee/BES1_27GeV/out4cchist
+#beamenergy=27,39,62
+beamenergy=$1
+outDir=/star/data01/pwg/geurts/cc2ee/BES1_${beamenergy}GeV/out4cchist
 
 mkdir -p ${outDir}/csh
 mkdir -p ${outDir}/report
@@ -22,4 +24,4 @@ echo "current directory: $dir"
 
 ioutDirCent=${outDir}/output
 mkdir -p ${ioutDirCent}
-star-submit-template -template submit4cchists.xml -entities logpath=${outDir},outpath=${ioutDirCent}
+star-submit-template -template submit4cchists.xml -entities logpath=${outDir},outpath=${ioutDirCent},energy=${beamenergy}
