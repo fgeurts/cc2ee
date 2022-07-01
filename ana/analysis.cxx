@@ -116,18 +116,25 @@ int main(int argc, char** argv){
     hCounter->GetXaxis()->SetBinLabel(5, "nStringCbarEvts");
     hCounter->GetXaxis()->SetBinLabel(6, "nTwoStringEvts");
 
-    TH2D *h0pTInvMassAccccbar      = new TH2D("h0pTInvMassAccccbar"      , "No smearing ccbar acc"   , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *h0pTInvMassccbar         = new TH2D("h0pTInvMassccbar"         , "No smearing ccbar "      , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassAccccbar       = new TH2D("hpTInvMassAccccbar"       , "Smearing ccbar acc"      , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassccbar          = new TH2D("hpTInvMassccbar"          , "Smearing ccbar "         , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmDPhiAccccbar = new TH2D("hpTInvMassRmDPhiAccccbar" , "RmDPhi ccbar acc"        , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmDPhiccbar    = new TH2D("hpTInvMassRmDPhiccbar"    , "RmDPhi ccbar "           , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmPhiAccccbar  = new TH2D("hpTInvMassRmPhiAccccbar"  , "RmPhi ccbar acc"         , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmPhiccbar     = new TH2D("hpTInvMassRmPhiccbar"     , "RmPhi ccbar "            , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmEtaAccccbar  = new TH2D("hpTInvMassRmEtaAccccbar"  , "RmEta and Phi ccbar acc" , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmEtaccbar     = new TH2D("hpTInvMassRmEtaccbar"     , "RmEta and Phi ccbar "    , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmAllAccccbar  = new TH2D("hpTInvMassRmAllAccccbar"  , "RmAll ccbar acc"         , 1800 , 0. , 3.6 , 200 , 0. , 5.);
-    TH2D *hpTInvMassRmAllccbar     = new TH2D("hpTInvMassRmAllccbar"     , "RmAll ccbar "            , 1800 , 0. , 3.6 , 200 , 0. , 5.);
+    int mBins = 1800;
+    float maxMass = 3.6;
+    if (ENERGY==27){ // BES-1 analysis code expects different histogram configurations for 27GeV cocktail contributions
+      mBins = 700;
+      maxMass = 3.5;
+    }
+
+    TH2D *h0pTInvMassAccccbar      = new TH2D("h0pTInvMassAccccbar"      , "No smearing ccbar acc"   , mBins , 0. , maxMass , 200 , 0. , 5.);
+    TH2D *h0pTInvMassccbar         = new TH2D("h0pTInvMassccbar"         , "No smearing ccbar "      , mBins , 0. , maxMass , 200 , 0. , 5.);
+    TH2D *hpTInvMassAccccbar       = new TH2D("hpTInvMassAccccbar"       , "Smearing ccbar acc"      , mBins , 0. , maxMass , 200 , 0. , 5.);
+    TH2D *hpTInvMassccbar          = new TH2D("hpTInvMassccbar"          , "Smearing ccbar "         , mBins , 0. , maxMass , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmDPhiAccccbar = new TH2D("hpTInvMassRmDPhiAccccbar" , "RmDPhi ccbar acc"        , mBins , 0. , maxMass , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmDPhiccbar    = new TH2D("hpTInvMassRmDPhiccbar"    , "RmDPhi ccbar "           , mBins , 0. , maxMass , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmPhiAccccbar  = new TH2D("hpTInvMassRmPhiAccccbar"  , "RmPhi ccbar acc"         , mBins , 0. , maxMass , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmPhiccbar     = new TH2D("hpTInvMassRmPhiccbar"     , "RmPhi ccbar "            , mBins , 0. , maxMass , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmEtaAccccbar  = new TH2D("hpTInvMassRmEtaAccccbar"  , "RmEta and Phi ccbar acc" , mBins , 0. , maxMass , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmEtaccbar     = new TH2D("hpTInvMassRmEtaccbar"     , "RmEta and Phi ccbar "    , mBins , 0. , maxMass , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmAllAccccbar  = new TH2D("hpTInvMassRmAllAccccbar"  , "RmAll ccbar acc"         , mBins , 0. , maxMass , 200 , 0. , 5.);
+    TH2D *hpTInvMassRmAllccbar     = new TH2D("hpTInvMassRmAllccbar"     , "RmAll ccbar "            , mBins , 0. , maxMass , 200 , 0. , 5.);
  //fg - Define LE-based histograms
     TH2D *h0pTInvMassAccccbarLE      = new TH2D("h0pTInvMassAccccbarLE"      , "No smearing ccbar acc"   , MassBins, LowEdges, HpTBins, HlowEdgespT);
     TH2D *h0pTInvMassccbarLE         = new TH2D("h0pTInvMassccbarLE"         , "No smearing ccbar "      , MassBins, LowEdges, HpTBins, HlowEdgespT);
