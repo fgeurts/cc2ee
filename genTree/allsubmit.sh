@@ -12,18 +12,18 @@
 
 nEvtStep=1000 # step of num should be always same as nEvtStep!!!!!
 
-for num in {1..4001..1000}
+#for num in {1..4001..1000}
 #for num in {4001..10001..1000}
 #for num in {11001..20001..1000}
-#for num in {21001..40001..1000}
+for num in {21001..40001..1000}
 #for num in {41001..60001..1000}
 do echo "submit for the ${num}th job !!! "
 	iStart=${num}
 	iStop=$((${num}+${nEvtStep}))
 	echo "job id will be: " ${num} "to" ${iStop}
 	./submit.sh ${num} ${iStop}
-	echo "-------------------go to sleep for 3 hour------------------------------"
-	sleep 3h
+	#echo "-------------------go to sleep for 3 hour------------------------------"
+	#sleep 3h
 done
 
 echo "all jobs submitted"
