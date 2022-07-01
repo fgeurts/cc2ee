@@ -1,8 +1,22 @@
+# general development files
+*~
+# general compilable objects, binaries, and other execution related soft links
+*.o
+*.d
+*.so
+*.log
 genTree/runMcAll.con
-genTree/genPythia_C.d
-genTree/genPythia_C.so
 genTree/log
 genTree/output
 genTree/script
 genTree/outtest
-*~
+ana/analysis
+ana/*.dataset
+ana/*.session.xml
+ana/schedTemplateExp.xml
+ana/csh
+ana/err
+ana/log
+ana/out4cchist
+ana/output
+ana/report
