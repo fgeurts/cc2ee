@@ -11,14 +11,6 @@ mkdir -p ${outDir}/log
 mkdir -p ${outDir}/err
 mkdir -p ${outDir}/output
 
-ln -sf ${outDir} .
-ln -sf ${outDir}/csh .
-ln -sf ${outDir}/report .
-ln -sf ${outDir}/list .
-ln -sf ${outDir}/log .
-ln -sf ${outDir}/err .
-ln -sf ${outDir}/output .
-
 dir=$(pwd)
 echo "current directory: $dir"
 

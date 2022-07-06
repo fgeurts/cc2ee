@@ -14,10 +14,3 @@ ana/analysis
 ana/*.dataset
 ana/*.session.xml
 ana/schedTemplateExp.xml
-ana/csh
-ana/err
-ana/list
-ana/log
-ana/out4cchist
-ana/output
-ana/report
