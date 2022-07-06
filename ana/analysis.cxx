@@ -204,6 +204,12 @@ int main(int argc, char** argv){
     for(int i=0;i<n;i++){
       if(i%100000==0) cout<<i<<" events"<<endl;
       chain->GetEntry(i);
+
+      // event must contain 2 strings form ccbar 
+      Int_t ncString    = tree->ncString;
+      Int_t ncbarString = tree->ncbarString;
+      if(ncString!=1 || ncbarString!=1) continue;
+
       Int_t nePos = tree->nePos;
       Int_t neNeg = tree->neNeg;
 
@@ -232,6 +238,11 @@ int main(int argc, char** argv){
     for(int i=0;i<n;i++){
 	if(i%100000==0) cout<<i<<" events"<<endl;
 	chain->GetEntry(i);
+
+	// event must contain 2 strings form ccbar 
+	Int_t ncString    = tree->ncString;
+	Int_t ncbarString = tree->ncbarString;
+	if(ncString!=1 || ncbarString!=1) continue;
 
 	// get the number of electrons and positrons for this event
 	Int_t nePos = tree->nePos;
